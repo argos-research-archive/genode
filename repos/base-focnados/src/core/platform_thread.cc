@@ -328,8 +328,10 @@ void Platform_thread::_finalize_construction(const char *name)
 	                        &params);
 	_id = l4_utcb_mr()->mr[0];
 	_arrival_time = l4_utcb_mr()->mr[1];
+	Genode::printf("\narrival_time %d,%llu,\n",_id,_arrival_time/1000);
 	//PDBG("sched cap %d\n", L4_BASE_SCHEDULER_CAP);
 	//PDBG("name:%s id:%d arrived:%llu", name, _id, _arrival_time);
+	Genode::printf("\ncreate_thread %d,%s,\n",_id,name);
 }
 
 
@@ -503,6 +505,7 @@ void Platform_thread::killed()
 	if (_utcb) {
 		l4_thread_stats_time(_thread.local.data()->kcap());
 		_kill_time = l4_utcb_mr()->mr[4];
+		Genode::printf("\nexit_time %d,%llu,\n",_id,_kill_time/1000);
 	}
 }
 
